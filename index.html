@@ -1006,17 +1006,18 @@ function openAlphaDetail(idx) {
   document.getElementById('alphaWord').textContent = a.word;
   document.getElementById('alphaMeaning').textContent = a.wordKor;
   showView('alpha-detail');
-  // auto-play sound with "Letter. Letter is for Word." pattern
-  setTimeout(() => speak(a.letter + '. ' + a.letter + ' is for ' + a.word + '.'), 300);
+  // auto-play sound: slowly, with pause between letter and word
+  // "A...    A is for Apple."
+  setTimeout(() => speak(a.letter + ', ,  ,  ' + a.letter + ' is for ' + a.word + '.', 0.5), 300);
 }
 
 function speakAlpha() { 
   const a = ALPHABET[currentAlpha];
-  speak(a.letter + '. ' + a.letter + ' is for ' + a.word + '.');
+  speak(a.letter + ', ,  ,  ' + a.letter + ' is for ' + a.word + '.', 0.5);
 }
 function speakAlphaExample() {
   const a = ALPHABET[currentAlpha];
-  speak(a.word);
+  speak(a.word, 0.5);
 }
 function markAlphabetLearned() {
   if (!state.learnedAlpha.includes(currentAlpha)) {
@@ -1065,9 +1066,9 @@ function showWord() {
   document.getElementById('wordEng').textContent = w.eng;
   document.getElementById('wordPron').textContent = '[' + w.pron + ']';
   document.getElementById('wordKor').textContent = w.kor;
-  setTimeout(() => speak(w.eng), 300);
+  setTimeout(() => speak(w.eng, 0.5), 300);
 }
-function speakWord() { speak(currentWords[currentWordIdx].eng); }
+function speakWord() { speak(currentWords[currentWordIdx].eng, 0.5); }
 function speakWordSlow() { speakSlow(currentWords[currentWordIdx].eng); }
 function prevWord() {
   currentWordIdx = (currentWordIdx - 1 + currentWords.length) % currentWords.length;
@@ -1154,7 +1155,7 @@ function renderFamily() {
   `).join('');
 }
 function speakFamily(i) {
-  speak(FAMILY[i].eng);
+  speak(FAMILY[i].eng, 0.5);
 }
 
 // ============================================================
@@ -1180,7 +1181,7 @@ function renderGame() {
   ).join('');
   
   // auto-play word
-  setTimeout(() => speak(correct.word), 400);
+  setTimeout(() => speak(correct.word, 0.5), 400);
 }
 
 function answerGame(idx) {
@@ -1209,7 +1210,7 @@ function answerGame(idx) {
   }
 }
 function speakGameWord() {
-  if (gameQuestion) speak(gameQuestion.correct.word);
+  if (gameQuestion) speak(gameQuestion.correct.word, 0.5);
 }
 
 // ============================================================
@@ -1222,7 +1223,7 @@ function renderGrandkid() {
       <div class="kid-bubble-text">${p.kor}</div>
       <div class="kid-bubble-eng">${p.eng}</div>
       <div style="color: #8b7355; font-size: 16px; font-family: 'Gaegu', cursive; margin-top: 4px;">[${p.pron}]</div>
-      <button class="big-btn small pink" style="margin-top: 12px; margin-bottom: 0;" onclick="speak('${p.eng.replace(/'/g, "\\'")}')">🔊 들어보기</button>
+      <button class="big-btn small pink" style="margin-top: 12px; margin-bottom: 0;" onclick="speak('${p.eng.replace(/'/g, "\\'")}', 0.5)">🔊 들어보기</button>
     </div>
   `).join('');
 }
