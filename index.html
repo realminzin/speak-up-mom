@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>우리 엄마 영어 교실</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gaegu:wght@400;700&family=Jua&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fef9f3;
+    --bg-card: #ffffff;
+    --bg-soft: #fff5e6;
+    --border: #ffd9a8;
+    --text: #4a3520;
+    --text-soft: #8b7355;
+    --pink: #ff7eb3;
+    --pink-dark: #ff5e95;
+    --yellow: #ffd64a;
+    --orange: #ff9551;
+    --green: #7ed8a4;
+    --blue: #6fbfff;
+    --purple: #c89eff;
+    --red: #ff6b6b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; user-select: none; }
+  html, body { overflow-x: hidden; }
+  body {
+    font-family: 'Gowun Dodum', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 18px;
+    line-height: 1.6;
+    background-image: 
+      radial-gradient(circle at 20% 10%, rgba(255, 214, 74, 0.15) 0px, transparent 200px),
+      radial-gradient(circle at 80% 80%, rgba(255, 126, 179, 0.15) 0px, transparent 200px);
+  }
+  .jua { font-family: 'Jua', sans-serif; }
+  .gaegu { font-family: 'Gaegu', sans-serif; }
+
+  /* Top bar */
+  header {
+    padding: 18px 20px;
+    background: white;
+    border-bottom: 3px solid var(--yellow);
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .header-content { display: flex; justify-content: space-between; align-items: center; }
+  .title { font-family: 'Jua', sans-serif; font-size: 22px; color: var(--orange); display: flex; align-items: center; gap: 8px; }
+  .home-btn {
+    background: var(--yellow); border: none; color: var(--text);
+    padding: 10px 18px; border-radius: 100px;
+    font-family: 'Jua', sans-serif; font-size: 16px;
+    cursor: pointer; box-shadow: 0 3px 0 #e0b020;
+  }
+  .home-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #e0b020; }
+
+  main { padding: 20px; max-width: 720px; margin: 0 auto; padding-bottom: 40px; }
+  .view { display: none; animation: bounceIn 0.4s ease; }
+  .view.active { display: block; }
+  @keyframes bounceIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+
+  /* ============== HOME ============== */
+  .welcome {
+    background: linear-gradient(135deg, var(--pink), var(--orange));
+    border-radius: 28px;
+    padding: 28px 24px;
+    color: white;
+    margin-bottom: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(255, 149, 81, 0.3);
+  }
+  .welcome::before {
+    content: '🌸'; position: absolute; top: 10px; left: 20px; font-size: 24px; opacity: 0.5;
+  }
+  .welcome::after {
+    content: '🌷'; position: absolute; bottom: 10px; right: 20px; font-size: 30px; opacity: 0.5;
+  }
+  .welcome-greeting { font-family: 'Gaegu', cursive; font-size: 24px; margin-bottom: 4px; }
+  .welcome-title { font-family: 'Jua', sans-serif; font-size: 32px; line-height: 1.2; margin-bottom: 12px; }
+  .stamps {
+    background: rgba(255,255,255,0.25);
+    border-radius: 20px; padding: 12px;
+    margin-top: 16px;
+    font-size: 24px;
+    min-height: 50px;
+    display: flex; align-items: center; justify-content: center;
+    flex-wrap: wrap; gap: 4px;
+  }
+  .stamps-label { font-family: 'Gaegu', cursive; font-size: 16px; opacity: 0.9; }
+
+  .section-label {
+    font-family: 'Jua', sans-serif;
+    font-size: 19px;
+    color: var(--text-soft);
+    margin: 20px 0 12px;
+    padding-left: 8px;
+  }
+
+  /* Big menu cards */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .menu-card {
+    background: var(--bg-card);
+    border: 3px solid var(--border);
+    border-radius: 24px;
+    padding: 22px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 18px;
+    font-family: inherit;
+    color: inherit;
+    text-align: left;
+    width: 100%;
+    box-shadow: 0 4px 0 var(--border);
+  }
+  .menu-card:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--border); }
+  .menu-card.featured { 
+    background: linear-gradient(135deg, #fff8e1, #ffecb3);
+    border-color: var(--yellow);
+    box-shadow: 0 4px 0 #e0b020;
+  }
+  .menu-icon {
+    width: 64px; height: 64px;
+    border-radius: 20px;
+    display: grid; place-items: center;
+    font-size: 36px;
+    flex-shrink: 0;
+  }
+  .icon-alphabet { background: linear-gradient(135deg, var(--pink), var(--pink-dark)); }
+  .icon-words { background: linear-gradient(135deg, var(--blue), #4a9fff); }
+  .icon-song { background: linear-gradient(135deg, var(--purple), #a878ff); }
+  .icon-family { background: linear-gradient(135deg, var(--green), #5cb88a); }
+  .icon-game { background: linear-gradient(135deg, var(--orange), #ff7a30); }
+  .icon-grandkid { background: linear-gradient(135deg, var(--yellow), #ffb720); }
+
+  .menu-info { flex: 1; min-width: 0; }
+  .menu-title { font-family: 'Jua', sans-serif; font-size: 22px; margin-bottom: 4px; }
+  .menu-desc { color: var(--text-soft); font-size: 15px; }
+  .menu-arrow { color: var(--text-soft); font-size: 28px; }
+
+  /* ============== ALPHABET ============== */
+  .alphabet-progress {
+    background: white; border: 3px solid var(--border);
+    border-radius: 20px; padding: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .progress-text { font-family: 'Jua', sans-serif; font-size: 18px; margin-bottom: 10px; }
+  .progress-bar { 
+    background: var(--bg-soft); border-radius: 100px; height: 16px; overflow: hidden;
+    border: 2px solid var(--border);
+  }
+  .progress-fill { 
+    height: 100%; 
+    background: linear-gradient(90deg, var(--green), var(--blue));
+    border-radius: 100px; transition: width 0.6s;
+  }
+
+  .alphabet-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .alpha-cell {
+    background: white;
+    border: 3px solid var(--border);
+    border-radius: 16px;
+    aspect-ratio: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Jua', sans-serif;
+    font-size: 28px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s;
+    box-shadow: 0 3px 0 var(--border);
+  }
+  .alpha-cell:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--border); }
+  .alpha-cell.learned { 
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border-color: var(--green);
+    box-shadow: 0 3px 0 var(--green);
+  }
+  .alpha-cell.learned::after {
+    content: '⭐'; position: absolute; top: -6px; right: -6px;
+    font-size: 18px;
+  }
+  .alpha-cell-letter { font-size: 32px; line-height: 1; }
+  .alpha-cell-sound { font-size: 12px; color: var(--text-soft); margin-top: 4px; font-family: 'Gowun Dodum', sans-serif; }
+
+  /* Alphabet detail screen */
+  .alpha-detail {
+    background: white;
+    border: 4px solid var(--yellow);
+    border-radius: 32px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 0 var(--border);
+  }
+  .alpha-big {
+    font-family: 'Jua', sans-serif;
+    font-size: 140px;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--pink), var(--orange));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+  }
+  .alpha-sound-text {
+    font-family: 'Gaegu', cursive;
+    font-size: 32px;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .alpha-example-emoji { font-size: 80px; margin: 10px 0; }
+  .alpha-example-word {
+    font-family: 'Jua', sans-serif;
+    font-size: 32px;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .alpha-example-meaning {
+    font-size: 18px;
+    color: var(--text-soft);
+    margin-bottom: 4px;
+  }
+
+  .big-btn {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 18px 24px;
+    border-radius: 20px;
+    font-family: 'Jua', sans-serif;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 5px 0 #c46b25;
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%;
+    margin-bottom: 12px;
+    transition: all 0.15s;
+  }
+  .big-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #c46b25; }
+  .big-btn.green { background: var(--green); box-shadow: 0 5px 0 #5ba978; }
+  .big-btn.green:active { box-shadow: 0 2px 0 #5ba978; }
+  .big-btn.pink { background: var(--pink); box-shadow: 0 5px 0 #c45f8a; }
+  .big-btn.pink:active { box-shadow: 0 2px 0 #c45f8a; }
+  .big-btn.blue { background: var(--blue); box-shadow: 0 5px 0 #4a8fc4; }
+  .big-btn.blue:active { box-shadow: 0 2px 0 #4a8fc4; }
+  .big-btn.yellow { background: var(--yellow); color: var(--text); box-shadow: 0 5px 0 #c4a420; }
+  .big-btn.yellow:active { box-shadow: 0 2px 0 #c4a420; }
+  .big-btn.small { padding: 14px 20px; font-size: 18px; }
+  
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Nav buttons */
+  .alpha-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+
+  /* ============== WORDS ============== */
+  .word-category {
+    background: white; border: 3px solid var(--border);
+    border-radius: 20px; padding: 18px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 4px 0 var(--border);
+    transition: all 0.15s;
+  }
+  .word-category:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--border); }
+  .word-cat-emoji { font-size: 44px; flex-shrink: 0; }
+  .word-cat-info { flex: 1; }
+  .word-cat-title { font-family: 'Jua', sans-serif; font-size: 22px; margin-bottom: 4px; }
+  .word-cat-desc { color: var(--text-soft); font-size: 14px; }
+
+  .word-card {
+    background: white;
+    border: 4px solid var(--border);
+    border-radius: 32px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 0 var(--border);
+  }
+  .word-emoji { font-size: 100px; margin-bottom: 16px; line-height: 1; }
+  .word-eng { font-family: 'Jua', sans-serif; font-size: 56px; color: var(--orange); margin-bottom: 8px; line-height: 1.1; }
+  .word-pron { font-family: 'Gaegu', cursive; font-size: 26px; color: var(--text-soft); margin-bottom: 8px; }
+  .word-kor { font-size: 22px; color: var(--text); }
+
+  /* ============== SONG ============== */
+  .song-screen {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    border-radius: 28px;
+    padding: 28px 24px;
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(200, 158, 255, 0.4);
+  }
+  .song-title { font-family: 'Jua', sans-serif; font-size: 30px; margin-bottom: 6px; }
+  .song-subtitle { font-family: 'Gaegu', cursive; font-size: 22px; opacity: 0.9; margin-bottom: 20px; }
+  .song-lyrics {
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 20px;
+    font-family: 'Jua', sans-serif;
+    font-size: 24px;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .song-lyrics .current { 
+    background: var(--yellow); color: var(--text);
+    padding: 2px 8px; border-radius: 8px;
+    display: inline-block;
+  }
+  .song-controls { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* ============== FAMILY ============== */
+  .family-intro {
+    background: linear-gradient(135deg, #fff3cd, #ffe066);
+    border-radius: 24px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 3px solid var(--yellow);
+  }
+  .family-intro h2 { font-family: 'Jua', sans-serif; font-size: 26px; margin-bottom: 8px; }
+  .family-intro p { font-family: 'Gaegu', cursive; font-size: 20px; color: var(--text-soft); }
+  
+  .family-list { display: flex; flex-direction: column; gap: 12px; }
+  .family-card {
+    background: white; border: 3px solid var(--border);
+    border-radius: 20px; padding: 18px;
+    display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 4px 0 var(--border);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .family-card:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--border); }
+  .family-emoji { font-size: 44px; flex-shrink: 0; }
+  .family-info { flex: 1; }
+  .family-eng { font-family: 'Jua', sans-serif; font-size: 26px; color: var(--orange); margin-bottom: 2px; }
+  .family-pron { font-family: 'Gaegu', cursive; font-size: 18px; color: var(--text-soft); margin-bottom: 2px; }
+  .family-kor { font-size: 16px; color: var(--text); }
+  .family-play {
+    width: 50px; height: 50px;
+    background: var(--orange);
+    border: none; border-radius: 50%;
+    color: white; font-size: 24px;
+    box-shadow: 0 3px 0 #c46b25;
+  }
+  .family-play:active { transform: translateY(2px); box-shadow: 0 1px 0 #c46b25; }
+
+  /* ============== GAME ============== */
+  .game-intro {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border-radius: 24px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    border: 3px solid var(--green);
+  }
+  .game-intro h2 { font-family: 'Jua', sans-serif; font-size: 26px; margin-bottom: 8px; }
+  .game-intro p { font-family: 'Gaegu', cursive; font-size: 20px; color: var(--text-soft); }
+  .game-score {
+    background: var(--yellow); color: var(--text);
+    border-radius: 100px; padding: 10px 24px;
+    font-family: 'Jua', sans-serif; font-size: 22px;
+    display: inline-block;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 0 #c4a420;
+  }
+  .game-question {
+    background: white; border: 4px solid var(--border);
+    border-radius: 28px; padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 0 var(--border);
+  }
+  .game-q-emoji { font-size: 80px; margin-bottom: 12px; }
+  .game-q-text { font-family: 'Jua', sans-serif; font-size: 24px; margin-bottom: 8px; color: var(--text-soft); }
+  .game-q-word { font-family: 'Jua', sans-serif; font-size: 50px; color: var(--orange); }
+  .game-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .game-option {
+    background: white; border: 3px solid var(--border);
+    border-radius: 20px; padding: 24px;
+    font-family: 'Jua', sans-serif; font-size: 36px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--border);
+    transition: all 0.15s;
+  }
+  .game-option:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--border); }
+  .game-option.correct { 
+    background: linear-gradient(135deg, var(--green), #5cb88a);
+    color: white; border-color: var(--green);
+    box-shadow: 0 4px 0 #4a9670;
+  }
+  .game-option.wrong { 
+    background: linear-gradient(135deg, var(--red), #e54a4a);
+    color: white; border-color: var(--red);
+    box-shadow: 0 4px 0 #c43838;
+  }
+
+  /* ============== GRANDKID ============== */
+  .kid-bubble {
+    background: white; border: 3px solid var(--pink);
+    border-radius: 24px; padding: 20px;
+    margin: 14px 0;
+    position: relative;
+    box-shadow: 0 4px 0 #f0a8c3;
+  }
+  .kid-bubble::before {
+    content: '👶'; position: absolute; top: -25px; left: 20px;
+    font-size: 40px;
+    background: white; border-radius: 50%;
+    padding: 4px;
+    border: 3px solid var(--pink);
+  }
+  .kid-bubble-name { font-family: 'Gaegu', cursive; font-size: 18px; color: var(--pink-dark); margin-bottom: 8px; padding-left: 50px; }
+  .kid-bubble-text { font-family: 'Jua', sans-serif; font-size: 20px; line-height: 1.5; }
+  .kid-bubble-eng { color: var(--orange); margin-top: 6px; font-size: 18px; }
+
+  /* ============== MODAL ============== */
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none; align-items: center; justify-content: center;
+    z-index: 200; padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-bg.active { display: flex; animation: fadeIn 0.3s; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal {
+    background: white;
+    border-radius: 28px;
+    padding: 32px 24px;
+    max-width: 360px; width: 100%;
+    text-align: center;
+    border: 4px solid var(--yellow);
+    box-shadow: 0 10px 0 var(--border);
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes popIn { 0% { transform: scale(0.5); } 100% { transform: scale(1); } }
+  .modal-emoji { font-size: 80px; margin-bottom: 12px; line-height: 1; }
+  .modal-title { font-family: 'Jua', sans-serif; font-size: 28px; color: var(--orange); margin-bottom: 8px; }
+  .modal-text { font-family: 'Gaegu', cursive; font-size: 22px; color: var(--text); margin-bottom: 20px; line-height: 1.4; }
+  
+  /* Confetti / floating */
+  .floating-emoji {
+    position: fixed;
+    font-size: 40px;
+    pointer-events: none;
+    z-index: 150;
+    animation: floatUp 1.5s ease-out forwards;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(0.5); opacity: 1; }
+    100% { transform: translateY(-200px) scale(1.5) rotate(360deg); opacity: 0; }
+  }
+
+  /* Hint banner */
+  .hint-banner {
+    background: var(--bg-soft);
+    border: 2px dashed var(--orange);
+    border-radius: 16px;
+    padding: 14px 18px;
+    font-family: 'Gaegu', cursive;
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hint-banner-icon { font-size: 26px; flex-shrink: 0; }
+
+  /* Speaking indicator */
+  .speaking-pulse {
+    display: inline-block;
+    animation: pulse 0.6s infinite alternate;
+  }
+  @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.15); } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="title">🌸 우리 엄마 영어 교실</div>
+    <button class="home-btn" onclick="goHome()">🏠 처음으로</button>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section class="view active" id="view-home">
+    <div class="welcome">
+      <div class="welcome-greeting">우리 엄마 ❤️</div>
+      <div class="welcome-title">오늘도 한 걸음씩<br>영어 공부해요!</div>
+      <div class="stamps">
+        <div style="width: 100%;" id="stampsArea">
+          <div class="stamps-label">오늘 받은 칭찬 도장 🌸</div>
+          <div id="stampsList" style="margin-top: 6px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">⭐ 무엇을 배워볼까요?</div>
+    
+    <div class="menu-grid">
+      <button class="menu-card featured" onclick="goAlphabet()">
+        <div class="menu-icon icon-alphabet">🔤</div>
+        <div class="menu-info">
+          <div class="menu-title">알파벳 배우기</div>
+          <div class="menu-desc">A부터 Z까지 차근차근</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </button>
+      
+      <button class="menu-card" onclick="goSong()">
+        <div class="menu-icon icon-song">🎵</div>
+        <div class="menu-info">
+          <div class="menu-title">알파벳 노래</div>
+          <div class="menu-desc">신나게 노래로 외워요</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </button>
+      
+      <button class="menu-card" onclick="goWords()">
+        <div class="menu-icon icon-words">🍎</div>
+        <div class="menu-info">
+          <div class="menu-title">쉬운 단어 배우기</div>
+          <div class="menu-desc">그림 보며 단어 익히기</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </button>
+      
+      <button class="menu-card" onclick="goFamily()">
+        <div class="menu-icon icon-family">👨‍👩‍👧</div>
+        <div class="menu-info">
+          <div class="menu-title">가족 영어로 말하기</div>
+          <div class="menu-desc">손주, 아들, 딸을 영어로</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </button>
+      
+      <button class="menu-card" onclick="goGame()">
+        <div class="menu-icon icon-game">🎮</div>
+        <div class="menu-info">
+          <div class="menu-title">짝 맞추기 놀이</div>
+          <div class="menu-desc">재미있게 놀면서 배워요</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </button>
+      
+      <button class="menu-card" onclick="goGrandkid()">
+        <div class="menu-icon icon-grandkid">👶</div>
+        <div class="menu-info">
+          <div class="menu-title">손주랑 영어 인사</div>
+          <div class="menu-desc">손주가 좋아할 영어 문장</div>
+        </div>
+        <div class="menu-arrow">›</div>
+      </button>
+    </div>
+  </section>
+
+  <!-- ALPHABET LIST -->
+  <section class="view" id="view-alphabet">
+    <div class="alphabet-progress">
+      <div class="progress-text">알파벳 진도 🏆 <span id="alphabetCount">0</span> / 26</div>
+      <div class="progress-bar"><div class="progress-fill" id="alphabetProgressFill" style="width: 0%"></div></div>
+    </div>
+    <div class="hint-banner">
+      <span class="hint-banner-icon">💡</span>
+      <span>글자를 누르면 소리가 나와요. 천천히 따라 해보세요!</span>
+    </div>
+    <div class="alphabet-grid" id="alphabetGrid"></div>
+  </section>
+
+  <!-- ALPHABET DETAIL -->
+  <section class="view" id="view-alpha-detail">
+    <div class="alpha-detail">
+      <div class="alpha-big" id="alphaBig">A</div>
+      <div class="alpha-sound-text" id="alphaSound">[에이]</div>
+      <div class="alpha-example-emoji" id="alphaEmoji">🍎</div>
+      <div class="alpha-example-word" id="alphaWord">Apple</div>
+      <div class="alpha-example-meaning" id="alphaMeaning">사과 (애플)</div>
+    </div>
+    <button class="big-btn" onclick="speakAlpha()">🔊 소리 듣기</button>
+    <button class="big-btn green" onclick="speakAlphaExample()">🍎 단어 듣기</button>
+    <button class="big-btn yellow" onclick="markAlphabetLearned()">⭐ 잘 배웠어요!</button>
+    <div class="alpha-nav">
+      <button class="big-btn small blue" onclick="prevAlpha()">◀ 이전 글자</button>
+      <button class="big-btn small pink" onclick="nextAlpha()">다음 글자 ▶</button>
+    </div>
+  </section>
+
+  <!-- WORDS CATEGORIES -->
+  <section class="view" id="view-words">
+    <div class="hint-banner">
+      <span class="hint-banner-icon">🍎</span>
+      <span>그림과 함께 쉬운 단어를 배워봐요!</span>
+    </div>
+    <div id="wordCategoryList"></div>
+  </section>
+
+  <!-- WORD DETAIL -->
+  <section class="view" id="view-word-detail">
+    <div class="word-card">
+      <div class="word-emoji" id="wordEmoji">🍎</div>
+      <div class="word-eng" id="wordEng">Apple</div>
+      <div class="word-pron" id="wordPron">[애플]</div>
+      <div class="word-kor" id="wordKor">사과</div>
+    </div>
+    <button class="big-btn" onclick="speakWord()">🔊 발음 듣기</button>
+    <button class="big-btn green" onclick="speakWordSlow()">🐢 천천히 듣기</button>
+    <div class="alpha-nav">
+      <button class="big-btn small blue" onclick="prevWord()">◀ 이전</button>
+      <button class="big-btn small pink" onclick="nextWord()">다음 ▶</button>
+    </div>
+    <div style="margin-top: 12px;">
+      <button class="big-btn small yellow" onclick="goWords()">📚 목록으로</button>
+    </div>
+  </section>
+
+  <!-- SONG -->
+  <section class="view" id="view-song">
+    <div class="song-screen">
+      <div class="song-title">🎵 알파벳 노래 🎵</div>
+      <div class="song-subtitle">신나게 따라 불러봐요!</div>
+      <div class="song-lyrics" id="songLyrics">
+        A B C D E F G<br>
+        H I J K L M N O P<br>
+        Q R S T U V<br>
+        W X Y and Z<br>
+        Now I know my A B C<br>
+        Next time won't you sing with me?
+      </div>
+    </div>
+    <button class="big-btn" id="songPlayBtn" onclick="toggleSong()">🎵 노래 부르기</button>
+    <button class="big-btn green" onclick="speakSlowSong()">🐢 천천히 부르기</button>
+    
+    <div class="hint-banner" style="margin-top: 20px;">
+      <span class="hint-banner-icon">🎤</span>
+      <span>트로트 부르듯이 흥겹게 따라 해보세요!</span>
+    </div>
+  </section>
+
+  <!-- FAMILY -->
+  <section class="view" id="view-family">
+    <div class="family-intro">
+      <h2>👨‍👩‍👧‍👦 우리 가족 영어로</h2>
+      <p>소중한 가족을 영어로 말해봐요!</p>
+    </div>
+    <div class="family-list" id="familyList"></div>
+  </section>
+
+  <!-- GAME -->
+  <section class="view" id="view-game">
+    <div class="game-intro">
+      <h2>🎮 짝 맞추기 놀이</h2>
+      <p>맞는 알파벳을 골라주세요!</p>
+    </div>
+    <div style="text-align: center;">
+      <div class="game-score">⭐ 맞춘 개수: <span id="gameScore">0</span></div>
+    </div>
+    <div class="game-question">
+      <div class="game-q-emoji" id="gameEmoji">🍎</div>
+      <div class="game-q-text">이건 무슨 글자로 시작할까요?</div>
+      <div class="game-q-word" id="gameWord">Apple</div>
+    </div>
+    <div class="game-options" id="gameOptions"></div>
+    <button class="big-btn yellow" onclick="speakGameWord()" style="margin-top: 16px;">🔊 다시 들어보기</button>
+  </section>
+
+  <!-- GRANDKID -->
+  <section class="view" id="view-grandkid">
+    <div class="family-intro">
+      <h2>👶 손주랑 영어 인사</h2>
+      <p>손주가 들으면 좋아할 영어 문장이에요!</p>
+    </div>
+    <div id="grandkidList"></div>
+  </section>
+</main>
+
+<!-- Modal -->
+<div class="modal-bg" id="praiseModal" onclick="if(event.target===this)closePraise()">
+  <div class="modal">
+    <div class="modal-emoji" id="praiseEmoji">🌸</div>
+    <div class="modal-title" id="praiseTitle">잘 하셨어요!</div>
+    <div class="modal-text" id="praiseText">정말 멋져요!</div>
+    <button class="big-btn pink" onclick="closePraise()">확인</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const ALPHABET = [
+  {letter: 'A', sound: '에이', word: 'Apple', wordKor: '사과 (애플)', emoji: '🍎'},
+  {letter: 'B', sound: '비-', word: 'Banana', wordKor: '바나나', emoji: '🍌'},
+  {letter: 'C', sound: '씨-', word: 'Cat', wordKor: '고양이 (캣)', emoji: '🐱'},
+  {letter: 'D', sound: '디-', word: 'Dog', wordKor: '강아지 (도그)', emoji: '🐶'},
+  {letter: 'E', sound: '이-', word: 'Egg', wordKor: '계란 (에그)', emoji: '🥚'},
+  {letter: 'F', sound: '에프', word: 'Fish', wordKor: '물고기 (피쉬)', emoji: '🐟'},
+  {letter: 'G', sound: '쥐-', word: 'Grape', wordKor: '포도 (그레이프)', emoji: '🍇'},
+  {letter: 'H', sound: '에이치', word: 'House', wordKor: '집 (하우스)', emoji: '🏠'},
+  {letter: 'I', sound: '아이', word: 'Ice', wordKor: '얼음 (아이스)', emoji: '🧊'},
+  {letter: 'J', sound: '제이', word: 'Juice', wordKor: '주스', emoji: '🧃'},
+  {letter: 'K', sound: '케이', word: 'Key', wordKor: '열쇠 (키)', emoji: '🔑'},
+  {letter: 'L', sound: '엘-', word: 'Lemon', wordKor: '레몬', emoji: '🍋'},
+  {letter: 'M', sound: '엠-', word: 'Mom', wordKor: '엄마 (맘)', emoji: '👩'},
+  {letter: 'N', sound: '엔-', word: 'Nose', wordKor: '코 (노즈)', emoji: '👃'},
+  {letter: 'O', sound: '오우', word: 'Orange', wordKor: '오렌지', emoji: '🍊'},
+  {letter: 'P', sound: '피-', word: 'Pizza', wordKor: '피자', emoji: '🍕'},
+  {letter: 'Q', sound: '큐-', word: 'Queen', wordKor: '여왕 (퀸)', emoji: '👸'},
+  {letter: 'R', sound: '알-', word: 'Rose', wordKor: '장미 (로즈)', emoji: '🌹'},
+  {letter: 'S', sound: '에스', word: 'Sun', wordKor: '해 (썬)', emoji: '☀️'},
+  {letter: 'T', sound: '티-', word: 'Tea', wordKor: '차 (티)', emoji: '🍵'},
+  {letter: 'U', sound: '유-', word: 'Umbrella', wordKor: '우산 (엄브렐러)', emoji: '☂️'},
+  {letter: 'V', sound: '브이', word: 'Van', wordKor: '승합차 (밴)', emoji: '🚐'},
+  {letter: 'W', sound: '더블유', word: 'Water', wordKor: '물 (워터)', emoji: '💧'},
+  {letter: 'X', sound: '엑스', word: 'Xylophone', wordKor: '실로폰', emoji: '🎵'},
+  {letter: 'Y', sound: '와이', word: 'Yellow', wordKor: '노랑 (옐로우)', emoji: '💛'},
+  {letter: 'Z', sound: '지-', word: 'Zebra', wordKor: '얼룩말 (지브라)', emoji: '🦓'}
+];
+
+const WORD_CATEGORIES = [
+  {
+    id: 'food', title: '음식 🍔', emoji: '🍔', desc: '맛있는 음식들',
+    words: [
+      {emoji: '🍞', eng: 'Bread', pron: '브레드', kor: '빵'},
+      {emoji: '☕', eng: 'Coffee', pron: '커피', kor: '커피'},
+      {emoji: '🍚', eng: 'Rice', pron: '라이스', kor: '밥'},
+      {emoji: '🍜', eng: 'Noodle', pron: '누들', kor: '국수'},
+      {emoji: '🥛', eng: 'Milk', pron: '밀크', kor: '우유'},
+      {emoji: '🍪', eng: 'Cookie', pron: '쿠키', kor: '쿠키'},
+      {emoji: '🍦', eng: 'Ice cream', pron: '아이스크림', kor: '아이스크림'},
+      {emoji: '🍰', eng: 'Cake', pron: '케이크', kor: '케이크'}
+    ]
+  },
+  {
+    id: 'home', title: '집 안 물건 🏠', emoji: '🏠', desc: '집에서 쓰는 것들',
+    words: [
+      {emoji: '🚪', eng: 'Door', pron: '도어', kor: '문'},
+      {emoji: '🛏️', eng: 'Bed', pron: '베드', kor: '침대'},
+      {emoji: '🪑', eng: 'Chair', pron: '체어', kor: '의자'},
+      {emoji: '📺', eng: 'TV', pron: '티비', kor: '티비'},
+      {emoji: '📱', eng: 'Phone', pron: '폰', kor: '전화'},
+      {emoji: '⌚', eng: 'Clock', pron: '클락', kor: '시계'},
+      {emoji: '🪟', eng: 'Window', pron: '윈도우', kor: '창문'},
+      {emoji: '💡', eng: 'Light', pron: '라이트', kor: '불 (전등)'}
+    ]
+  },
+  {
+    id: 'animal', title: '동물 🐱', emoji: '🐱', desc: '귀여운 동물들',
+    words: [
+      {emoji: '🐶', eng: 'Dog', pron: '도그', kor: '강아지'},
+      {emoji: '🐱', eng: 'Cat', pron: '캣', kor: '고양이'},
+      {emoji: '🐔', eng: 'Chicken', pron: '치킨', kor: '닭'},
+      {emoji: '🐷', eng: 'Pig', pron: '피그', kor: '돼지'},
+      {emoji: '🐮', eng: 'Cow', pron: '카우', kor: '소'},
+      {emoji: '🐦', eng: 'Bird', pron: '버드', kor: '새'},
+      {emoji: '🐟', eng: 'Fish', pron: '피쉬', kor: '물고기'},
+      {emoji: '🐰', eng: 'Rabbit', pron: '래빗', kor: '토끼'}
+    ]
+  },
+  {
+    id: 'color', title: '색깔 🎨', emoji: '🎨', desc: '예쁜 색깔들',
+    words: [
+      {emoji: '❤️', eng: 'Red', pron: '레드', kor: '빨강'},
+      {emoji: '💛', eng: 'Yellow', pron: '옐로우', kor: '노랑'},
+      {emoji: '💚', eng: 'Green', pron: '그린', kor: '초록'},
+      {emoji: '💙', eng: 'Blue', pron: '블루', kor: '파랑'},
+      {emoji: '🤍', eng: 'White', pron: '화이트', kor: '하양'},
+      {emoji: '🖤', eng: 'Black', pron: '블랙', kor: '검정'},
+      {emoji: '💗', eng: 'Pink', pron: '핑크', kor: '분홍'},
+      {emoji: '🧡', eng: 'Orange', pron: '오렌지', kor: '주황'}
+    ]
+  },
+  {
+    id: 'number', title: '숫자 1-10 🔢', emoji: '🔢', desc: '하나, 둘, 셋',
+    words: [
+      {emoji: '1️⃣', eng: 'One', pron: '원', kor: '하나'},
+      {emoji: '2️⃣', eng: 'Two', pron: '투', kor: '둘'},
+      {emoji: '3️⃣', eng: 'Three', pron: '쓰리', kor: '셋'},
+      {emoji: '4️⃣', eng: 'Four', pron: '포', kor: '넷'},
+      {emoji: '5️⃣', eng: 'Five', pron: '파이브', kor: '다섯'},
+      {emoji: '6️⃣', eng: 'Six', pron: '식스', kor: '여섯'},
+      {emoji: '7️⃣', eng: 'Seven', pron: '세븐', kor: '일곱'},
+      {emoji: '8️⃣', eng: 'Eight', pron: '에이트', kor: '여덟'},
+      {emoji: '9️⃣', eng: 'Nine', pron: '나인', kor: '아홉'},
+      {emoji: '🔟', eng: 'Ten', pron: '텐', kor: '열'}
+    ]
+  }
+];
+
+const FAMILY = [
+  {emoji: '👵', eng: 'Grandma', pron: '그랜마', kor: '할머니'},
+  {emoji: '👴', eng: 'Grandpa', pron: '그랜파', kor: '할아버지'},
+  {emoji: '👩', eng: 'Mom', pron: '맘', kor: '엄마'},
+  {emoji: '👨', eng: 'Dad', pron: '대드', kor: '아빠'},
+  {emoji: '🧑', eng: 'Son', pron: '썬', kor: '아들'},
+  {emoji: '👧', eng: 'Daughter', pron: '도터', kor: '딸'},
+  {emoji: '👶', eng: 'Baby', pron: '베이비', kor: '아기'},
+  {emoji: '👦', eng: 'Grandson', pron: '그랜썬', kor: '손자'},
+  {emoji: '👧', eng: 'Granddaughter', pron: '그랜도터', kor: '손녀'},
+  {emoji: '👨‍👩‍👧‍👦', eng: 'Family', pron: '패밀리', kor: '가족'}
+];
+
+const GRANDKID_PHRASES = [
+  {kor: '안녕, 우리 손주야!', eng: 'Hi, my baby!', pron: '하이, 마이 베이비!'},
+  {kor: '사랑해.', eng: 'I love you.', pron: '아이 러브 유'},
+  {kor: '잘 잤어?', eng: 'Good morning!', pron: '굿모닝!'},
+  {kor: '잘 자.', eng: 'Good night!', pron: '굿나잇!'},
+  {kor: '예쁘다!', eng: 'You are pretty!', pron: '유 아 프리티!'},
+  {kor: '잘했어!', eng: 'Good job!', pron: '굿잡!'},
+  {kor: '최고야!', eng: 'You are the best!', pron: '유 아 더 베스트!'},
+  {kor: '맛있게 먹어.', eng: 'Enjoy your food!', pron: '인조이 유어 푸드!'},
+  {kor: '뽀뽀!', eng: 'Kiss kiss!', pron: '키스 키스!'},
+  {kor: '안아줄게.', eng: 'Hug!', pron: '허그!'}
+];
+
+const PRAISES = [
+  {emoji: '🌸', title: '잘 하셨어요!', text: '정말 잘 따라하셨네요!'},
+  {emoji: '🌷', title: '훌륭해요!', text: '점점 발음이 좋아져요!'},
+  {emoji: '⭐', title: '대단해요!', text: '오늘도 한 글자 정복!'},
+  {emoji: '🎉', title: '최고예요!', text: '손주가 자랑스러워할 거예요!'},
+  {emoji: '💖', title: '예뻐요!', text: '엄마 정말 멋져요!'},
+  {emoji: '🌟', title: '훌륭합니다!', text: '꾸준히 하시면 영어 박사 되세요!'},
+  {emoji: '👏', title: '박수~!', text: '짝짝짝! 정말 잘 하셨어요!'}
+];
+
+// ============================================================
+// STATE
+// ============================================================
+const STORE_KEY = 'mom_english_v1';
+let state = loadState();
+let currentAlpha = 0;
+let currentWords = [];
+let currentWordIdx = 0;
+let currentSongPlaying = false;
+let gameQuestion = null;
+let gameScore = 0;
+let songTimers = [];
+
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+    return {
+      learnedAlpha: s.learnedAlpha || [],
+      todayStamps: s.todayStamps || [],
+      stampsDate: s.stampsDate || null
+    };
+  } catch {
+    return { learnedAlpha: [], todayStamps: [], stampsDate: null };
+  }
+}
+function saveState() { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+
+function resetStampsIfNewDay() {
+  const today = new Date().toDateString();
+  if (state.stampsDate !== today) {
+    state.todayStamps = [];
+    state.stampsDate = today;
+    saveState();
+  }
+}
+
+function addStamp() {
+  resetStampsIfNewDay();
+  const stampOptions = ['🌸', '🌷', '🌻', '🌹', '🌺', '🌼', '⭐', '💖', '🎀'];
+  const stamp = stampOptions[Math.floor(Math.random() * stampOptions.length)];
+  state.todayStamps.push(stamp);
+  saveState();
+  renderStamps();
+}
+
+function renderStamps() {
+  resetStampsIfNewDay();
+  const el = document.getElementById('stampsList');
+  if (!el) return;
+  if (state.todayStamps.length === 0) {
+    el.innerHTML = '<span style="font-family: Gaegu; font-size: 18px; opacity: 0.7;">공부하면 도장이 쌓여요!</span>';
+  } else {
+    el.innerHTML = state.todayStamps.join(' ');
+  }
+}
+
+// ============================================================
+// SPEECH
+// ============================================================
+function speak(text, rate = 0.75) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  utter.rate = rate;
+  utter.pitch = 1.1;
+  const voices = window.speechSynthesis.getVoices();
+  const enVoice = voices.find(v => v.lang === 'en-US' && (v.name.includes('Samantha') || v.name.includes('Google'))) 
+    || voices.find(v => v.lang.startsWith('en'));
+  if (enVoice) utter.voice = enVoice;
+  window.speechSynthesis.speak(utter);
+  return utter;
+}
+function speakSlow(text) { return speak(text, 0.5); }
+if ('speechSynthesis' in window) {
+  setTimeout(() => window.speechSynthesis.getVoices(), 100);
+}
+
+function stopAllSpeech() {
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  songTimers.forEach(t => clearTimeout(t));
+  songTimers = [];
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function showView(name) {
+  stopAllSpeech();
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goHome() { 
+  showView('home'); 
+  renderStamps();
+  // restore song button if it was changed
+  const sb = document.getElementById('songPlayBtn');
+  if (sb) sb.innerHTML = '🎵 노래 부르기';
+  currentSongPlaying = false;
+}
+function goAlphabet() { showView('alphabet'); renderAlphabetGrid(); }
+function goWords() { showView('words'); renderWordCategories(); }
+function goSong() { showView('song'); }
+function goFamily() { showView('family'); renderFamily(); }
+function goGame() { showView('game'); gameScore = 0; renderGame(); }
+function goGrandkid() { showView('grandkid'); renderGrandkid(); }
+
+// ============================================================
+// PRAISE MODAL
+// ============================================================
+function showPraise() {
+  const p = PRAISES[Math.floor(Math.random() * PRAISES.length)];
+  document.getElementById('praiseEmoji').textContent = p.emoji;
+  document.getElementById('praiseTitle').textContent = p.title;
+  document.getElementById('praiseText').textContent = p.text;
+  document.getElementById('praiseModal').classList.add('active');
+  // floating emojis
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => spawnFloating(p.emoji), i * 100);
+  }
+  addStamp();
+}
+function closePraise() { document.getElementById('praiseModal').classList.remove('active'); }
+
+function spawnFloating(emoji) {
+  const el = document.createElement('div');
+  el.className = 'floating-emoji';
+  el.textContent = emoji;
+  el.style.left = (20 + Math.random() * 60) + 'vw';
+  el.style.top = '60vh';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1600);
+}
+
+// ============================================================
+// ALPHABET
+// ============================================================
+function renderAlphabetGrid() {
+  const grid = document.getElementById('alphabetGrid');
+  const learnedCount = state.learnedAlpha.length;
+  document.getElementById('alphabetCount').textContent = learnedCount;
+  document.getElementById('alphabetProgressFill').style.width = (learnedCount / 26 * 100) + '%';
+  
+  grid.innerHTML = ALPHABET.map((a, i) => {
+    const learned = state.learnedAlpha.includes(i);
+    return `
+      <div class="alpha-cell ${learned ? 'learned' : ''}" onclick="openAlphaDetail(${i})">
+        <div class="alpha-cell-letter">${a.letter}</div>
+        <div class="alpha-cell-sound">[${a.sound}]</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openAlphaDetail(idx) {
+  currentAlpha = idx;
+  const a = ALPHABET[idx];
+  document.getElementById('alphaBig').textContent = a.letter;
+  document.getElementById('alphaSound').textContent = '[' + a.sound + ']';
+  document.getElementById('alphaEmoji').textContent = a.emoji;
+  document.getElementById('alphaWord').textContent = a.word;
+  document.getElementById('alphaMeaning').textContent = a.wordKor;
+  showView('alpha-detail');
+  // auto-play sound
+  setTimeout(() => speak(a.letter), 300);
+}
+
+function speakAlpha() { 
+  const a = ALPHABET[currentAlpha];
+  speak(a.letter);
+}
+function speakAlphaExample() {
+  const a = ALPHABET[currentAlpha];
+  speak(a.word);
+}
+function markAlphabetLearned() {
+  if (!state.learnedAlpha.includes(currentAlpha)) {
+    state.learnedAlpha.push(currentAlpha);
+    saveState();
+  }
+  showPraise();
+}
+function prevAlpha() {
+  currentAlpha = (currentAlpha - 1 + 26) % 26;
+  openAlphaDetail(currentAlpha);
+}
+function nextAlpha() {
+  currentAlpha = (currentAlpha + 1) % 26;
+  openAlphaDetail(currentAlpha);
+}
+
+// ============================================================
+// WORDS
+// ============================================================
+function renderWordCategories() {
+  const html = WORD_CATEGORIES.map(c => `
+    <div class="word-category" onclick="openWordCategory('${c.id}')">
+      <div class="word-cat-emoji">${c.emoji}</div>
+      <div class="word-cat-info">
+        <div class="word-cat-title">${c.title}</div>
+        <div class="word-cat-desc">${c.words.length}개 단어 · ${c.desc}</div>
+      </div>
+      <div class="menu-arrow">›</div>
+    </div>
+  `).join('');
+  document.getElementById('wordCategoryList').innerHTML = html;
+}
+
+function openWordCategory(id) {
+  const cat = WORD_CATEGORIES.find(c => c.id === id);
+  currentWords = cat.words;
+  currentWordIdx = 0;
+  showWord();
+  showView('word-detail');
+}
+
+function showWord() {
+  const w = currentWords[currentWordIdx];
+  document.getElementById('wordEmoji').textContent = w.emoji;
+  document.getElementById('wordEng').textContent = w.eng;
+  document.getElementById('wordPron').textContent = '[' + w.pron + ']';
+  document.getElementById('wordKor').textContent = w.kor;
+  setTimeout(() => speak(w.eng), 300);
+}
+function speakWord() { speak(currentWords[currentWordIdx].eng); }
+function speakWordSlow() { speakSlow(currentWords[currentWordIdx].eng); }
+function prevWord() {
+  currentWordIdx = (currentWordIdx - 1 + currentWords.length) % currentWords.length;
+  showWord();
+}
+function nextWord() {
+  currentWordIdx = (currentWordIdx + 1) % currentWords.length;
+  showWord();
+}
+
+// ============================================================
+// SONG
+// ============================================================
+function toggleSong() {
+  const btn = document.getElementById('songPlayBtn');
+  if (currentSongPlaying) {
+    stopAllSpeech();
+    currentSongPlaying = false;
+    btn.innerHTML = '🎵 노래 부르기';
+    return;
+  }
+  currentSongPlaying = true;
+  btn.innerHTML = '⏸️ 멈추기';
+  playSong(0.75);
+}
+
+function speakSlowSong() {
+  stopAllSpeech();
+  const btn = document.getElementById('songPlayBtn');
+  btn.innerHTML = '⏸️ 멈추기';
+  currentSongPlaying = true;
+  playSong(0.5);
+}
+
+function playSong(rate) {
+  // Sing alphabet phrase by phrase
+  const phrases = [
+    'A B C D E F G',
+    'H I J K L M N O P',
+    'Q R S T U V',
+    'W X Y and Z',
+    'Now I know my A B C',
+    'Next time won\'t you sing with me'
+  ];
+  let i = 0;
+  function nextPhrase() {
+    if (!currentSongPlaying) return;
+    if (i >= phrases.length) {
+      currentSongPlaying = false;
+      document.getElementById('songPlayBtn').innerHTML = '🎵 다시 부르기';
+      setTimeout(() => showPraise(), 500);
+      return;
+    }
+    const u = speak(phrases[i], rate);
+    if (u) {
+      u.onend = () => {
+        i++;
+        const t = setTimeout(nextPhrase, 200);
+        songTimers.push(t);
+      };
+    } else {
+      i++;
+      const t = setTimeout(nextPhrase, 2000);
+      songTimers.push(t);
+    }
+  }
+  nextPhrase();
+}
+
+// ============================================================
+// FAMILY
+// ============================================================
+function renderFamily() {
+  document.getElementById('familyList').innerHTML = FAMILY.map((f, i) => `
+    <div class="family-card" onclick="speakFamily(${i})">
+      <div class="family-emoji">${f.emoji}</div>
+      <div class="family-info">
+        <div class="family-eng">${f.eng}</div>
+        <div class="family-pron">[${f.pron}]</div>
+        <div class="family-kor">${f.kor}</div>
+      </div>
+      <button class="family-play" onclick="event.stopPropagation(); speakFamily(${i})">🔊</button>
+    </div>
+  `).join('');
+}
+function speakFamily(i) {
+  speak(FAMILY[i].eng);
+}
+
+// ============================================================
+// GAME (matching: emoji → letter)
+// ============================================================
+function renderGame() {
+  document.getElementById('gameScore').textContent = gameScore;
+  // pick a random word that starts with a known letter
+  const pool = ALPHABET.filter(a => a.word.length > 0);
+  const correct = pool[Math.floor(Math.random() * pool.length)];
+  // 3 wrong letters
+  const wrongs = ALPHABET
+    .filter(a => a.letter !== correct.letter)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3);
+  const options = [correct, ...wrongs].sort(() => Math.random() - 0.5);
+  gameQuestion = { correct, options };
+  
+  document.getElementById('gameEmoji').textContent = correct.emoji;
+  document.getElementById('gameWord').textContent = correct.word;
+  document.getElementById('gameOptions').innerHTML = options.map((o, i) => 
+    `<button class="game-option" onclick="answerGame(${i})">${o.letter}</button>`
+  ).join('');
+  
+  // auto-play word
+  setTimeout(() => speak(correct.word), 400);
+}
+
+function answerGame(idx) {
+  const buttons = document.querySelectorAll('.game-option');
+  const chosen = gameQuestion.options[idx];
+  const isCorrect = chosen.letter === gameQuestion.correct.letter;
+  
+  // mark answers
+  buttons.forEach((btn, i) => {
+    const opt = gameQuestion.options[i];
+    if (opt.letter === gameQuestion.correct.letter) {
+      btn.classList.add('correct');
+    } else if (i === idx && !isCorrect) {
+      btn.classList.add('wrong');
+    }
+    btn.style.pointerEvents = 'none';
+  });
+  
+  if (isCorrect) {
+    gameScore++;
+    // floating emojis
+    for (let i = 0; i < 4; i++) setTimeout(() => spawnFloating('⭐'), i * 80);
+    setTimeout(() => renderGame(), 1500);
+  } else {
+    setTimeout(() => renderGame(), 1800);
+  }
+}
+function speakGameWord() {
+  if (gameQuestion) speak(gameQuestion.correct.word);
+}
+
+// ============================================================
+// GRANDKID
+// ============================================================
+function renderGrandkid() {
+  document.getElementById('grandkidList').innerHTML = GRANDKID_PHRASES.map((p, i) => `
+    <div class="kid-bubble">
+      <div class="kid-bubble-name">손주에게 ❤️</div>
+      <div class="kid-bubble-text">${p.kor}</div>
+      <div class="kid-bubble-eng">${p.eng}</div>
+      <div style="color: #8b7355; font-size: 16px; font-family: 'Gaegu', cursive; margin-top: 4px;">[${p.pron}]</div>
+      <button class="big-btn small pink" style="margin-top: 12px; margin-bottom: 0;" onclick="speak('${p.eng.replace(/'/g, "\\'")}')">🔊 들어보기</button>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// SAFETY: release on hide/close
+// ============================================================
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) stopAllSpeech();
+});
+window.addEventListener('pagehide', stopAllSpeech);
+
+// ============================================================
+// INIT
+// ============================================================
+renderStamps();
+</script>
+
+</body>
+</html>
