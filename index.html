@@ -1006,13 +1006,13 @@ function openAlphaDetail(idx) {
   document.getElementById('alphaWord').textContent = a.word;
   document.getElementById('alphaMeaning').textContent = a.wordKor;
   showView('alpha-detail');
-  // auto-play sound
-  setTimeout(() => speak(a.letter), 300);
+  // auto-play sound with "Letter. Letter is for Word." pattern
+  setTimeout(() => speak(a.letter + '. ' + a.letter + ' is for ' + a.word + '.'), 300);
 }
 
 function speakAlpha() { 
   const a = ALPHABET[currentAlpha];
-  speak(a.letter);
+  speak(a.letter + '. ' + a.letter + ' is for ' + a.word + '.');
 }
 function speakAlphaExample() {
   const a = ALPHABET[currentAlpha];
